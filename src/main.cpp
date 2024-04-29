@@ -16,8 +16,10 @@
 #define SCREEN_WIDTH 128 // OLED display width, in pixels
 #define SCREEN_HEIGHT 32 // OLED display height, in pixels
 #define SCREEN_RESET -1 // Reset pin # (or -1 if sharing Arduino reset pin)
-#define SCREEN_ADDRESS 0x3C // See datasheet for address; 0x3D for 128x64, 0x3C for 128x32
+#define SCREEN_ADDRESS 0x3C // See datasheet for address; 0x3D for 128x64, 0x3C for 128x32, sometimes 0x3C for 128x64
 #define SCREEN_ROTATION 2 //2 = upside down
+#define SCREEN_SDA_PIN D2 // GPIO4
+#define SCREEN_SCL_PIN D1 // GPIO5
 
 #define RELAY_PIN 14 // PIN D5 on a NodeMCU V3
 
@@ -112,6 +114,9 @@ void handle_NotFound(){
 
 void setup() {
   Serial.begin(9600);
+
+  //Configure display pins
+  Wire.begin(SCREEN_SDA_PIN, SCREEN_SCL_PIN);
 
   //Configure relay GPIO mode
   pinMode(RELAY_PIN, OUTPUT);
